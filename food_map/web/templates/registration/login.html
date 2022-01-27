@@ -1,0 +1,28 @@
+{% extends "web/basic.html" %}
+{% block title %}Log-in{% endblock %}
+{% block header %}
+<header class="masthead" style="padding-top: 10px; padding-bottom: 80px;"></header>
+{% endblock %}
+{% block content %}
+    <h1>Вход в аккаунт</h1>
+    {% if form.errors %}
+        <p>Ваш логин или пароль неверный, пожалуйста, повторите попытку</p>
+    {% else %}
+        <p>Воспользуйтесь данной формой для регистрации.<br> Если у Вас нет аккаунта <a href="{% url 'register' %}">Зарегистрируйтесь здесь</a></p>
+    {% endif %}
+    <div class="login-form">
+        <form action="{% url 'login' %}" method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <p><input type="submit" value="Войти"></p>          <!--   Log-in-->
+        </form>
+        <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+    </div>
+    <div class="social">
+    <ul>
+        <li class="google"><a href="{% url 'social:begin' 'google-oauth2' %}"> Войти через Google</a></li>
+        <li class="facebook"><a href="{% url 'social:begin' 'vk-oauth2' %}">Войти через VK</a></li>
+    </ul>
+    </div>
+{% endblock %}

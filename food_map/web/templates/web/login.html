@@ -1,0 +1,14 @@
+{% extends "web/basic.html" %}
+{% block title %}Log-in{% endblock %}
+{% block header %}
+<header class="masthead" style="padding-top: 10px; padding-bottom: 80px;"></header>
+{% endblock %}
+{% block content %}
+<h1>Log-in</h1>
+<p>Please, use the following form to log-in:</p>
+<form action="." method="post">
+{{ form.as_p }}
+{% csrf_token %}
+<p><input type="submit" value="Log in"></p>
+</form>
+{% endblock %}

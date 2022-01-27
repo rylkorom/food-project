@@ -1,0 +1,21 @@
+{% extends 'web/basic.html'%}
+{% block title %}Add History{% endblock %}
+{% block header %}
+<header class="masthead" style="padding-top: 10px; padding-bottom: 80px;"></header>
+{% endblock %}
+{% block content %}
+<div align="center">
+    <h1>Добавление в историю посещения мест</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.date_of_visiting }}
+        <br><br>
+        {{ form.comment }}<br>
+        <p>Выберите заведение, в котором вы побывали - {{ form.place_of_visiting }}</p>
+        <button class="btn btn-success" type="submit">Добавить Место в историю</button>
+        <br>
+        <span>{{ error }}</span>
+        <br>
+        </form>
+</div>
+{% endblock %}

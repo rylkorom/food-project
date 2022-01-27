@@ -1,0 +1,15 @@
+{% extends 'web/basic.html'%}
+{% block title %}{{ news.title }}{% endblock %}
+{% block header %}
+<header class="masthead" style="padding-top: 10px; padding-bottom: 80px;"></header>
+{% endblock %}
+{% block content %}
+    <div>
+        <h1>{{ news.title }}</h1>
+        {% if news.image %}
+            <img src="{{ news.image.url }}" width="670">
+        {% endif %}
+        <p>{{ news.text }}</p>
+        <p>{{ news.pub_date }}</p>
+    </div>
+{% endblock %}

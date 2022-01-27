@@ -1,0 +1,107 @@
+{% extends 'web/basic.html'%}
+{% block title %}All Places{% endblock %}
+{% block header %}
+<header class="masthead" style="padding-top: 10px; padding-bottom: 80px;"></header>
+{% endblock %}
+{% block content %}
+    <div>
+        <h1 align="center">Выберите, какое место вы хотите посетить</h1>
+        <table width="800px">
+            <tr>
+                <th style="vertical-align: top; text-align: center">Тип Заведения</th>
+                <th style="vertical-align: top; text-align: center">Блюда</th>
+                <th style="vertical-align: top; text-align: center;">Кухня</th>
+            </tr>
+            <tr>
+                <td style="vertical-align: top">
+                    <ul style="list-style-type: none; right-margin: 50px;">
+                        <li><a href="{% url 'places_by_tag' 'hookah' %}">Кальянные</a></li>
+                        <li><a href="{% url 'places_by_tag' 'bar' %}">Бары</a></li>
+                        <li><a href="{% url 'places_by_tag' 'pub' %}">Пабы</a></li>
+                        <li><a href="{% url 'places_by_tag' 'pizzeria' %}">Пиццерии</a></li>
+                        <li><a href="{% url 'places_by_tag' 'restaurant' %}">Рестораны</a></li>
+                        <li><a href="{% url 'places_by_tag' 'coffee' %}">Кофейни</a></li>
+                        <li><a href="{% url 'places_by_tag' 'sushi_bar' %}">Суши-бары</a></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: top">
+                    <ul style="list-style-type: none">
+                        <li><a href="{% url 'places_by_tag' 'sushi' %}">Суши</a></li>
+                        <li><a href="{% url 'places_by_tag' 'pizza' %}">Пицца</a></li>
+                        <li><a href="{% url 'places_by_tag' 'vegetarian' %}">Вегетарианское</a></li>
+                        <li><a href="{% url 'places_by_tag' 'stake' %}">Стейки</a></li>
+                        <li><a href="{% url 'places_by_tag' 'dessert' %}">Десерты</a></li>
+                        <li><a href="{% url 'places_by_tag' 'burger' %}">Бургеры</a></li>
+                        <li><a href="{% url 'places_by_tag' 'delicacy' %}">Деликатесы</a></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: top">
+                    <ul style="list-style-type: none">
+                        <li><a href="{% url 'places_by_tag' 'italian' %}">Итальянская кухня</a></li>
+                        <li><a href="{% url 'places_by_tag' 'author_dishes' %}"></a>Авторские блюда</li>
+                        <li><a href="{% url 'places_by_tag' 'georgian' %}">Грузинская кухня</a></li>
+                        <li><a href="{% url 'places_by_tag' 'slavs' %}">Славянская кухня</a></li>
+                        <li><a href="{% url 'places_by_tag' 'asia' %}">Азиатская кухня</a></li>
+                        <li><a href="{% url 'places_by_tag' 'bakery' %}">Выпечка</a></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th style="vertical-align: top; text-align: center">Развлечения</th>
+                <th style="vertical-align: top; text-align: center">Для Мероприятий</th>
+                <th style="vertical-align: top; text-align: center;">Другое</th>
+            </tr>
+            <tr>
+                <td style="vertical-align: top">
+                    <ul style="list-style-type: none">
+                        <li><a href="{% url 'places_by_tag' 'karaoke' %}">Караоке</a></li>
+                        <li><a href="{% url 'places_by_tag' 'night_club' %}">Ночные клубы</a></li>
+                        <li><a href="{% url 'places_by_tag' 'summer_terra' %}">Летние террасы</a></li>
+                        <li><a href="{% url 'places_by_tag' 'concert' %}">Концерт</a></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: top">
+                    <ul style="list-style-type: none">
+                        <li><a href="{% url 'places_by_tag' 'wedding' %}">Свадьба</a></li>
+                        <li><a href="{% url 'places_by_tag' 'corporate' %}">Корпоратив</a></li>
+                        <li><a href="{% url 'places_by_tag' 'banquet' %}">Банкеты</a></li>
+                        <li><a href="{% url 'places_by_tag' 'for_couple' %}">Для двоих</a></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: top">
+                    <ul style="list-style-type: none">
+                        <li><a href="{% url 'places_by_tag' 'away' %}">Еда навынос</a></li>
+                        <li><a href="{% url 'places_by_tag' 'delivery' %}">Доставка</a></li>
+                        <li><a href="{% url 'places_by_tag' '24_hours' %}">Круглосуточно</a></li>
+                        <li><a href="{% url 'places_by_tag' 'sales' %}">Скидки</a></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        {% if tag %}
+            <h1 align="center">Посты с тегом "{{ tag.name }}"</h1>
+        {% else %}
+            <h1 align="center" style="margin-bottom: 30px">Все Места</h1>
+        {% endif %}
+        {% for place in places %}
+            <a href="{% url 'places_info' place.id %}">
+                <h2 class="post-title">{{ place.name }}</h2>
+            </a>
+            <p>Расположение: {{ place.location }}<br>Время работы: {{ place.work_time }}</p>
+            <p class="tags">
+                Тэги:
+                {% for tag in place.tags.all %}
+                    <a href="{% url 'places_by_tag' tag.slug %}">
+                        {{ tag.name }}
+                    </a>
+                     {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <img src="{{ place.image.url }}" width="500">
+            <hr class="my-4" />
+        {% endfor %}
+        {% include "web/pagination.html" with page=places %}
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'web/basic.html'%}
+{% block title %}History{% endblock %}
+{% block header %}
+<header class="masthead" style="padding-top: 10px; padding-bottom: 80px;"></header>
+{% endblock %}
+{% block content %}
+<div>
+    <h1 align="center">История посещенных мест</h1>
+    <br>
+    <a href="{% url 'add_history' %}">
+    <button class="btn btn-outline-primary" style="float: right; margin-right: -350px; margin-top: -70px">Добавить место</button>
+    </a>
+</div>
+<div></div>
+<div>
+    {% for element in history %}
+    <h3><a href="{% url 'places_info' element.place_of_visiting.id %}">{{ element.place_of_visiting.name }}</a></h3>
+        <img src="{{ element.place_of_visiting.image.url }}" width="500">
+        <p>{{element.comment}}<br>{{ element.date_of_visiting }}</p>
+        <hr class="my-4" />
+    {% endfor %}
+    {% include "web/pagination.html" with page=history %}
+</div>
+{% endblock %}

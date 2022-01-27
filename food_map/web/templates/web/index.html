@@ -1,0 +1,33 @@
+{% extends 'web/basic.html'%}
+{% block title %}Food for your mood{% endblock %}
+{% block header %}
+<header class="masthead" style="background-image: url('static/web/images/index_photo.webp')">
+<!--            padding-top: 10px;-->
+<!--            padding-bottom: 80px;-->
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Food for your mood</h1>
+                    <span class="subheading">We were made for helping your choice</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+{% block content %}
+    <!--Hi,there! We were made for helping your choice!-->
+        {% for article in news %}
+            <div class="post-preview">
+                <a href="{% url 'news_text' article.id %}">
+                    <h2 class="post-title">{{ article.title }}</h2>
+                </a>
+                    <p class="post-meta">
+                        Опубликовано {{ article.pub_date }}
+                    </p>
+            </div>
+            <hr class="my-4" />
+        {% endfor %}
+        {% include "web/pagination.html" with page=news %}
+{% endblock %}

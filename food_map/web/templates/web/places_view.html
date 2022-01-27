@@ -1,0 +1,37 @@
+{% extends 'web/basic.html'%}
+{% block title %}{{ news.title }}{% endblock %}
+{% block header %}
+<header class="masthead" style="padding-top: 10px; padding-bottom: 80px;"></header>
+{% endblock %}
+{% block content %}
+    <div>
+        <h1>{{ restaurant.name }}</h1>
+        <p>Время работы: {{ restaurant.work_time }}<br>
+        <a href="{{ location_url }}">Расположение:<br> <i>{{ restaurant.location }}</i></a></p>
+        <form action="{% url 'favourite_add' restaurant.pk %}" method="POST">
+            {% csrf_token %}
+            {% if not added %}
+            <button type="submit" name="restaurant_id" value="{{ restaurant.id }}"
+                    class="btn btn-outline-primary">Добавть в избранное</button>
+            {% else %}
+            <button type="submit" name="restaurant_id" value="{{ restaurant.id }}"
+                    class="btn btn-outline-primary">Удалить из избранного</button>
+            {% endif %}
+        </form>
+        {% if restaurant.image %}
+            <img src="{{ restaurant.image.url }}" width="670">
+        {% endif %}
+        <br>
+        <br>
+        <h3 align="center">Меню заведения:</h3>
+        <br>
+        {% for menu in menu_images %}
+            {% if menu.menu_image %}
+                <img src="{{ menu.menu_image.url }}" width="1000" height="800">
+            {% endif %}
+        {% endfor %}
+        <br><br>
+        <h3>{{ restaurant.type }} {{ restaurant.name }} описание:</h3>
+        <p>{{ restaurant.description }}</p>
+    </div>
+{% endblock %}

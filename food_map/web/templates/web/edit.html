@@ -1,0 +1,15 @@
+{% extends 'web/basic.html'%}
+{% block title %}Edit account info{% endblock %}
+{% block header %}
+<header class="masthead" style="padding-top: 10px; padding-bottom: 80px;"></header>
+{% endblock %}
+{% block content %}
+    <h1>Edit your account</h1>
+    <p>You can edit your account using the following form:</p>
+    <form action="." method="post">
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Save changes"></p>
+    </form>
+{% endblock %}

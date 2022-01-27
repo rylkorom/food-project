@@ -1,0 +1,18 @@
+{% extends 'web/basic.html'%}
+{% block title %}Food for your mood{% endblock %}
+{% block header %}
+<header class="masthead" style="padding-top: 10px; padding-bottom: 80px;"></header>
+{% endblock %}
+{% block content %}
+    <h1 align="center">Сохраненные заведения</h1>
+    <br>
+    {% for place in wishlist %}
+        <a href="{% url 'places_info' place.id %}">
+                <h2 class="post-title">{{ place.name }}</h2>
+        </a>
+<p>Тип заведения: {{ place.type }}<br>Расположение: {{ place.location }}<br>Время работы: {{ place.work_time }}</p>
+        <img src="{{ place.image.url }}" width="500">
+        <hr class="my-4" />
+    {% endfor %}
+    {% include "web/pagination.html" with page=wishlist %}
+{% endblock %}

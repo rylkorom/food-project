@@ -1,0 +1,14 @@
+{% extends 'web/basic.html'%}
+{% block title %}Registration{% endblock %}
+{% block header %}
+<header class="masthead" style="padding-top: 10px; padding-bottom: 80px;"></header>
+{% endblock %}
+{% block content %}
+    <h1>Создание аакаунта</h1>
+    <h4>Пожалуйста, заполните данную форму для регистрации:</h4>
+    <form action="." method="post">
+        {{ user_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Create my account"></p>
+    </form>
+{% endblock %}
