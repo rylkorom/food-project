@@ -43,20 +43,6 @@ class News(models.Model):
         verbose_name_plural = 'Новости'
 
 
-# class WishListItem(models.Model):
-#     """Model, that describes interaction with wishlist"""
-#     plan_date = models.DateField('Дата желаемого посещения', blank=True, null=True)
-#     comments = models.CharField('Пожелания', blank=True, null=True, max_length=200)
-#     place_of_visiting = models.OneToOneField('Restaurant', on_delete=models.PROTECT)
-#
-#     def __str__(self):
-#         return self.place_of_visiting.name
-#
-#     class Meta:
-#         verbose_name = 'Список пожеланий'
-#         verbose_name_plural = 'Список пожеланий'
-
-
 class History(models.Model):
     """Model, that storage all the visited places and experiences about them"""
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
