@@ -9,20 +9,22 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import environ
 from pathlib import Path
+
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$h8f83zi!a-lp*td3ly^ko4a1l7i*c@00_hop0al+cwoql%$y@'
+SECRET_KEY = env('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
@@ -77,10 +79,9 @@ WSGI_APPLICATION = 'food_map.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': BASE_DIR / 'db.postgresql',
-        'NAME': 'food-map',
-        'USER': 'user1',
-        'PASSWORD': 'user1',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASS'),
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -111,12 +112,12 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',
 )
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '970116191030-4po74n7qe9tbja7bql6ildvag04miehd.apps.googleusercontent.com'  # Google Consumer Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'  # Google Consumer Secret
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')  # Google Consumer Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')  # Google Consumer Secret
 
-SOCIAL_AUTH_VK_OAUTH2_KEY = '8062987'
+SOCIAL_AUTH_VK_OAUTH2_KEY = env('SOCIAL_AUTH_VK_OAUTH2_KEY')
 # VKONTAKTE_APP_ID = VK_APP_ID
-SOCIAL_AUTH_VK_OAUTH2_SECRET = 'HFiv2Porc7J1RhKNxOCS'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = env('SOCIAL_AUTH_VK_OAUTH2_SECRET')
 # VKONTAKTE_APP_SECRET = VK_API_SECRET
 
 
